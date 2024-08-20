@@ -28,7 +28,6 @@ struct MSL: ParsableCommand {
   var nvme = false
 
   func run() throws {
-    print(disk!)
     let kernelURL = URL(fileURLWithPath: kernel, isDirectory: false)
     let ramdiskURL = URL(fileURLWithPath: ramdisk, isDirectory: false)
 
