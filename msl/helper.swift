@@ -29,8 +29,8 @@ func createConsoleConfiguration() -> VZSerialPortConfiguration {
   // and CR-NL mapping.
   var attributes = termios()
   tcgetattr(inputFileHandle.fileDescriptor, &attributes)
-  //attributes.c_iflag &= ~tcflag_t(ICRNL)
-  //attributes.c_lflag &= ~tcflag_t(ICANON | ECHO)
+  attributes.c_iflag &= ~tcflag_t(ICRNL)
+  attributes.c_lflag &= ~tcflag_t(ICANON | ECHO)
   tcsetattr(inputFileHandle.fileDescriptor, TCSANOW, &attributes)
 
   let stdioAttachment = VZFileHandleSerialPortAttachment(fileHandleForReading: inputFileHandle, fileHandleForWriting: outputFileHandle)

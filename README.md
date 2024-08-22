@@ -2,7 +2,7 @@
 
 A small WSL2-like tool for running lightweight linux virtual machines on macOS. Code is based on Apple's Virtualization framework examples [https://developer.apple.com/documentation/virtualization]. Linux GUI is not supported.
 
-```sh
+```
 msl --help
 
 USAGE: msl [--cpu <cpu>] [--ram <ram>] [--kernel <kernel>] [--ramdisk <ramdisk>] [--disk <disk>] [--cmd <cmd>] [--mac <mac>] [--nvme]
@@ -36,7 +36,7 @@ wget https://cloud-images.ubuntu.com/releases/noble/release/ubuntu-24.04-server-
 tar xzf ubuntu-24.04-server-cloudimg-arm64.tar.gz
 ```
 
-First we will boot initramfs only so we can set root password, disable cloud-init and set network device to DHCP mode. If nvme flag was present block device will have different name (check /proc/partitions).
+First we will boot initramfs only so we can set root password and network device to DHCP mode. If nvme flag was present block device will have different name (check /proc/partitions).
 ```sh
 msl --disk noble-server-cloudimg-arm64.img --cmd "console=hvc0 rd.break=initqueue"
 ```
@@ -45,8 +45,6 @@ msl --disk noble-server-cloudimg-arm64.img --cmd "console=hvc0 rd.break=initqueu
 mkdir /mnt
 mount /dev/vda /mnt
 chroot /mnt
-
-touch /etc/cloud/cloud-init.disabled
 
 echo 'root:root' | chpasswd
 
