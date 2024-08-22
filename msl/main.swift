@@ -2,6 +2,10 @@ import Foundation
 import Virtualization
 import ArgumentParser
 
+let trap: sig_t = { signal in
+  //print("Got signal: \(signal). Use poweroff command inside VM.")
+}
+
 struct MSL: ParsableCommand {
   @Option(help: "Number of CPUs VM will use")
   var cpu: UInt8 = 1
@@ -28,6 +32,8 @@ struct MSL: ParsableCommand {
   var nvme = false
 
   func run() throws {
+    signal(SIGINT, trap)
+
     let kernelURL = URL(fileURLWithPath: kernel, isDirectory: false)
     let ramdiskURL = URL(fileURLWithPath: ramdisk, isDirectory: false)
 
